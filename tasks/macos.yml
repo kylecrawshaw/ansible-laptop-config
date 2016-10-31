@@ -1,0 +1,37 @@
+---
+
+- name: Install Mac App Store apps with mas-cli
+  shell: "scripts/mas_install.sh {{ item }}"
+  args:
+    creates: "/Applications/{{ item }}.app"
+  with_items: "{{ mas_apps }}"
+  tags:
+    - mas
+    - macos
+
+- block:
+    - name: Remove specified items from Dock
+      shell: "dockutil --remove {{ item }}"
+      ignore_errors: true
+      with_items: "{{ dockitems_to_remove }}"
+    
+    - name: Check if items in dock exist
+      shell: "dockutil --find {{ item.name }} || dockutil --add {{ item.path }}"
+      with_items: "{{ dockitems_to_persist }}"
+    
+    - name: Fix order
+      shell: "dockutil --move {{ item.name }} --position {{ item.pos }}"
+      with_items: "{{ dockitems_to_persist }}"
+  tags:
+    - macos
+    - dock
+
+- name: Include Fixes for Homebrew links and apps
+  include: homebrew_fixes.yml
+
+- name: Install Powerline Fonts
+  shell: "./install.sh && touch /Users/Shared/.fonts-installed.txt"
+  args:
+    chdir: "{{ utilities_location }}/powerline-fonts"
+    creates: /Users/Shared/.fonts-installed.txt
+
