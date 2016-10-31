@@ -49,7 +49,7 @@
 
     - include: tasks/dock.yml
     - name: Install Mac App Store apps with mas-cli
-      shell: "scripts/mas_search.sh {{ item }}"
+      shell: "scripts/mas_install.sh {{ item }}"
       args:
         creates: "/Applications/{{ item }}.app"
       with_items: "{{ mas_apps }}"
