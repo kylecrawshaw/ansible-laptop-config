@@ -1,0 +1,34 @@
+---
+- name: Check if OverSight is Installed
+  stat:
+    path: /Applications/OverSight.app
+  register: oversight_path
+
+- block:
+
+    - name: Get OverSight Version
+      shell: brew cask list --versions | grep oversight | awk '{print $2}'
+      register: oversight_version
+
+    - name: Set OverSight Installer Path
+      set_fact:
+        oversight_installer_path: "/usr/local/Caskroom/oversight/{{ oversight_version.stdout }}/OverSight_Installer.app"
+    
+    - name: Ensure OverSight Installer Exists
+      stat:
+        path: "{{ oversight_installer_path }}"
+      register: oversight_installer_path_exists
+
+    - name: Run OverSight Installer
+      shell: "{{ oversight_installer_path}}/Contents/MacOS/OverSight_Installer &"
+      become: yes
+      when: oversight_installer_path_exists.stat.exists == True
+      register: oversight
+
+  when: oversight_path.stat.exists == False
+
+- name: Link MacVim from Homebrew path to /Applications
+  shell: brew linkapps macvim
+  args:
+    creates: /Applications/MacVim.app
+

@@ -1,0 +1,61 @@
+---
+# Place brew binary in proper location and complete setup.
+- name: Check if homebrew binary is already in place.
+  stat:
+    path: "{{ homebrew_brew_bin_path }}/brew"
+  register: homebrew_binary
+
+- name: Install homewbrew if binary is missing
+  shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  when: homebrew_binary.stat.exists == false
+
+- name: Force update brew after installation.
+  command: "{{ homebrew_brew_bin_path }}/brew update --force"
+  when: homebrew_binary.stat.exists == false
+
+# Tap.
+- name: Ensure configured taps are tapped.
+  homebrew_tap:
+    tap: "{{ item }}"
+    state: present
+  with_items: "{{ homebrew_taps }}"
+
+# Brew.
+- name: Ensure configured homebrew packages are installed.
+  homebrew:
+    name: "{{ item.name | default(item) }}"
+    state: "{{ item.state | default('present') }}"
+    install_options: "{{ homebrew_package_options[item]|default(omit)|join(',')}}"
+  with_items: "{{ homebrew_installed_packages }}"
+
+- name: Upgrade all homebrew packages (if configured).
+  homebrew:
+    update_homebrew: yes
+    upgrade_all: yes
+  when: homebrew_upgrade_all_packages
+
+# Cask.
+- name: Get list of apps installed with cask.
+  command: >
+    bash -l -c '{{ homebrew_brew_bin_path }}/brew cask list'
+  register: homebrew_cask_list
+  always_run: yes
+  changed_when: false
+
+# Use command module instead of homebrew_cask so appdir can be used.
+- name: Install configured cask applications.
+  homebrew_cask:
+    name: "{{ item }}"
+    install_options: "appdir={{ homebrew_cask_appdir }}"
+    path: "{{ homebrew_brew_bin_path }}"
+  with_items: "{{ homebrew_cask_apps }}"
+  when: "'{{ item }}' not in homebrew_cask_list.stdout"
+
+- name: Check for Brewfile.
+  stat:
+    path: "{{ homebrew_brewfile_dir }}/Brewfile"
+  register: homebrew_brewfile
+
+- name: Install from Brewfile.
+  command: "brew bundle chdir={{ homebrew_brewfile_dir }}"
+  when: homebrew_brewfile.stat.exists and homebrew_use_brewfile

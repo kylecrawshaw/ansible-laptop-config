@@ -1,0 +1,51 @@
+---
+- hosts: localhost
+  connection: local
+  
+  vars_files:
+    - vars/main.yml
+  
+  roles:
+    - { name: homebrew }
+    - { name: zsh, tags: [zsh] }
+    - { name: geerlingguy.dotfiles, tags: [dotfiles] }
+  tasks:
+
+    - name: Install NPM Packages
+      npm:
+        name: "{{ item }}"
+        global: yes
+        state: present
+      with_items:
+        - "{{ npm_modules }}"
+
+    - name: Clone Git Repos
+      git:
+        repo: "{{ item.repo }}"
+        dest: "{{ item.dest }}"
+      with_items: "{{ git_repos }}"
+
+    - name: Install easy_install packages
+      easy_install:
+        name: ipython
+    
+    - name: Install Python Packages
+      pip:
+        name: "{{ item.name }}"
+        extra_args: "{{ item.extra_args | default(omit) }}"
+        executable: "{{ item.executable | default('pip') }}"
+      become: "{{ item.become | default('no') }}"
+      with_items: "{{ python_packages }}"
+      tags:
+          - python
+
+    - name: Install Powerline Fonts
+      shell: "./install.sh && touch /Users/Shared/.fonts-installed.txt"
+      args:
+        chdir: "{{ utilities_location }}/powerline-fonts"
+        creates: /Users/Shared/.fonts-installed.txt
+
+    - include: tasks/homebrew_fixes.yml
+
+    - include: tasks/dock.yml
+

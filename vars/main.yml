@@ -1,0 +1,122 @@
+---
+
+utilities_location: "~/UtilityRepos"
+
+user_shell: /bin/zsh
+
+dotfiles_repo: "https://github.com/kylecrawshaw/dotfiles.git"
+dotfiles_repo_local_destination: "{{ utilities_location }}"
+dotfiles_home: "/Users/{{ ansible_user }}"
+dotfiles_files:
+  - .karabiner.d
+  - .zshrc
+  - .vimrc
+  - .tmux.conf
+  - .hammerspoon
+  - .oh-my-zsh/custom/aliases
+  - .oh-my-zsh/custom/functions
+  - com.googlecode.iterm2.plist
+
+npm_modules:
+  - vmd
+  - osx-wifi-cli
+
+homebrew_taps:
+  - caskroom/cask
+  - macvim-dev/macvim
+
+homebrew_cask_apps:
+  - mojibar
+  - iterm2
+  - 1clipboard
+  - franz
+  - atom
+  - docker
+  - docker-toolbox
+  - vivaldi
+  - gitter
+  - omnifocus
+    #  - vmware-fusion
+  - keybase
+  - gpgtools
+  - nvalt
+  - packages
+  - hammerspoon
+  - suspicious-package
+  - dash
+  - malwarebytes-anti-malware
+  - mancy
+  - pacifist
+  - autodmg
+  - netspot
+  - wireshark
+  - sequel-pro
+  - ransomwhere
+  - oversight
+  - taskexplorer
+  - knockknock
+  - karabiner-elements
+  - launchcontrol
+
+homebrew_installed_packages:
+  - terraform
+  - python3
+  - { name: macvim-dev/macvim/macvim, state: head }
+  - lastpass-cli
+  - awscli
+  - keybase
+  - osquery
+  - node
+  - zsh
+  - zsh-completions
+  - zsh-syntax-highlighting
+  - tree
+  - hub
+  - reattach-to-user-namespace
+  - pwgen
+  - ttyrec
+  - docker
+  - tmux
+  - dockutil
+
+homebrew_package_options:
+  macvim-dev/macvim/macvim:
+    - with-override-system-vim
+
+git_repos:
+  - { repo: "https://github.com/jay0lee/GAM.git",
+      dest: "{{ utilities_location }}/GAM/" }
+  - { repo: "https://github.com/VundleVim/Vundle.vim.git",
+      dest: "~/.vim/bundle/Vundle.vim" }
+  - { repo: "https://github.com/powerline/fonts.git",
+      dest: "{{ utilities_location }}/powerline-fonts/" }
+
+
+python_packages:
+  - { name: tmuxomatic, extra_args: --upgrade, executable: pip3 }
+  - { name: virtualenv, become: yes }
+  - { name: virtualenvwrapper, extra_args: "--ignore-installed six", become: yes }
+  - { name: ipython, executable: pip3 }
+
+dockitems_to_remove:
+  - all
+
+dockitems_to_persist:
+  - name: Gitter
+    path: "/Applications/Gitter.app"
+    pos: 1
+  - name: iTerm
+    path: "/Applications/iTerm.app"
+    pos: 2
+  - name: Vivaldi
+    path: "/Applications/Vivaldi.app"
+    pos: 3
+  - name: Atom
+    path: "/Applications/Atom.app"
+    pos: 4
+  - name: Franz
+    path: "/Applications/Franz.app"
+    pos: 5
+  - name: Messages
+    path: "/Applications/Messages.app"
+    pos: 6

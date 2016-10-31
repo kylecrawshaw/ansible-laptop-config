@@ -1,0 +1,3 @@
+*.swp
+*.retry
+roles/geerlingguy.dotfiles
