@@ -57,6 +57,7 @@ homebrew_cask_apps:
   - knockknock
   - karabiner-elements
   - launchcontrol
+  - hazel
 
 homebrew_installed_packages:
   - terraform
@@ -120,3 +121,21 @@ dockitems_to_persist:
   - name: Messages
     path: "/Applications/Messages.app"
     pos: 6
+
+mas_apps:
+  - CCMenu
+  - CreateUserPkg
+  - Paw
+  - Pixelmator
+  - Tweetbot
+  - Monosnap
+  - WiFi Signal
+  - WiFi Explorer
+  - Dash
+  - Slack
+  - PullRequestMenu
+  - DaisyDisk
+  - Remote Desktop
+  - 1Password
+  - Pocket
+  - JSS MUT

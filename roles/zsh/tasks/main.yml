@@ -16,6 +16,8 @@
 
    - name: Install oh-my-zsh
      script: /tmp/zsh-installer.sh
+     become_user: "{{ ansible_user }}"
+     become: yes
   when: ohmyzsh.stat.exists == False
 
 - name: Setup User
