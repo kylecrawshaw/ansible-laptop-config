@@ -16,6 +16,8 @@ dotfiles_files:
   - .oh-my-zsh/custom/aliases
   - .oh-my-zsh/custom/functions
   - com.googlecode.iterm2.plist
+  - .gitconfig
+  - .gitignore_global
 
 npm_modules:
   - vmd
