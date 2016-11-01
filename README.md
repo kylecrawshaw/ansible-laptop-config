@@ -9,7 +9,7 @@ This has only been tested on macOS 10.12 Sierra, but should function on older ve
 - Install homebrew packages
 - Install homebrew cask apps
 - Add preferred apps to dock using dockutil
-- Install preferred Mac App Store apps using (mas-cli)[https://github.com/mas-cli/mas]
+- Install preferred Mac App Store apps using [mas-cli](https://github.com/mas-cli/mas)
 
 ## Running on macOS
 1. (optional) Modify the sudoers file to not require a password for the main user. This step makes it so you don't have to enter your sudo password mid run since the playbook takes a long time to run.
