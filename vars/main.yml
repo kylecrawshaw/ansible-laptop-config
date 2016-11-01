@@ -5,7 +5,7 @@ utilities_location: "~/UtilityRepos"
 user_shell: /bin/zsh
 
 dotfiles_repo: "https://github.com/kylecrawshaw/dotfiles.git"
-dotfiles_repo_local_destination: "{{ utilities_location }}"
+dotfiles_repo_local_destination: "{{ utilities_location }}/dotfiles"
 dotfiles_home: "/Users/{{ ansible_user }}"
 dotfiles_files:
   - .karabiner.d
@@ -38,7 +38,7 @@ homebrew_cask_apps:
   - vivaldi
   - gitter
   - omnifocus
-    #  - vmware-fusion
+  - vmware-fusion
   - keybase
   - gpgtools
   - nvalt
@@ -127,17 +127,17 @@ dockitems_to_persist:
 mas_apps:
   - CCMenu
   - CreateUserPkg
-  - Paw
   - Pixelmator
+  - "Electron APIs"
   - Tweetbot
   - Monosnap
-  - WiFi Signal
-  - WiFi Explorer
+  - "WiFi Signal"
+  - "WiFi Explorer"
   - Dash
   - Slack
   - PullRequestMenu
   - DaisyDisk
-  - Remote Desktop
+  - "Apple Remote Desktop"
   - 1Password
   - Pocket
-  - JSS MUT
+  - "JSS MUT"

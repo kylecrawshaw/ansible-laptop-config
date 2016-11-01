@@ -29,4 +29,4 @@
 
 - name: Include macOS Tasks
   include: macos.yml
-  when: ansible_distribution = "MacOSX"
+  when: ansible_os_family == "Darwin"

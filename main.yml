@@ -6,7 +6,7 @@
     - vars/main.yml
   
   roles:
-    - { name: homebrew, when: ansible_distribution == "MacOSX" }
+    - { name: homebrew, when: ansible_os_family == "Darwin" }
     - { name: zsh, tags: [zsh] }
     - { name: geerlingguy.dotfiles, tags: [dotfiles] }
   tasks:
