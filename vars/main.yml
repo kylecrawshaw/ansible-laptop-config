@@ -22,6 +22,14 @@ dotfiles_files:
 npm_modules:
   - vmd
   - osx-wifi-cli
+  - eslint
+  - estraverse
+  - estraverse-fb
+  - eslint-plugin-react
+  - eslint-plugin-flowtype-errors
+  - eslint-plugin-import
+  - eslint-plugin-promise
+  - babel-eslint
 
 homebrew_taps:
   - caskroom/cask
@@ -60,6 +68,7 @@ homebrew_cask_apps:
   - karabiner-elements
   - launchcontrol
   - hazel
+  - brave
 
 homebrew_installed_packages:
   - terraform
@@ -100,6 +109,7 @@ python_packages:
   - { name: virtualenv, become: yes }
   - { name: virtualenvwrapper, extra_args: "--ignore-installed six", become: yes }
   - { name: ipython, executable: pip3 }
+  - { name: cookiecutter, become: yes }
 
 dockitems_to_remove:
   - all
@@ -129,7 +139,7 @@ mas_apps:
   - CreateUserPkg
   - Pixelmator
   - "Electron APIs"
-  - Tweetbot
+  - "Tweetbot for Twitter"
   - Monosnap
   - "WiFi Signal"
   - "WiFi Explorer"
@@ -138,6 +148,6 @@ mas_apps:
   - PullRequestMenu
   - DaisyDisk
   - "Apple Remote Desktop"
-  - 1Password
+  - "1Password - Password Manager and Secure Wallet"
   - Pocket
   - "JSS MUT"

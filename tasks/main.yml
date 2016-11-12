@@ -6,6 +6,8 @@
     state: present
   with_items:
     - "{{ npm_modules }}"
+  tags:
+    - npm
 
 - name: Clone Git Repos
   git:
