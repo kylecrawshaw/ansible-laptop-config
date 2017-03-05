@@ -8,13 +8,13 @@ dotfiles_repo: "https://github.com/kylecrawshaw/dotfiles.git"
 dotfiles_repo_local_destination: "{{ utilities_location }}/dotfiles"
 dotfiles_home: "/Users/{{ ansible_user }}"
 dotfiles_files:
-  - .karabiner.d
   - .zshrc
   - .vimrc
   - .tmux.conf
   - .hammerspoon
   - .oh-my-zsh/custom/aliases
   - .oh-my-zsh/custom/functions
+  - .config/karabiner/karabiner.json
   - com.googlecode.iterm2.plist
   - .gitconfig
   - .gitignore_global
